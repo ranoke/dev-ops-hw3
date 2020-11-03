@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  hits:
+    image: python-app
+    ports:
+      - 5000:5000
+    networks:
+      - main-network
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      - main-network
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
+    driver: local
+
+networks:
+  main-network:
+   driver: bridge
